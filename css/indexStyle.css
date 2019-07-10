@@ -1,0 +1,43 @@
+
+/* Spotify color scheme */
+/* Green = #84bd00 */
+/* Black = #000000 */
+/* Grey = #828282 */
+/* Sand = #ecebe8 */
+/* White = #ffffff */
+
+
+body, html{
+
+    background-color: #686868;
+    height: 100;
+    width: 100;
+}
+
+.titleCenter{
+    text-align: center;
+    color: white;
+}
+
+
+.container-fluid{
+    border-style: solid;
+    border-color: red;
+}
+.col-sm{
+    border-style: solid;
+    border-color: green;
+    text-align: center;
+
+}
+
+.container{
+    border-style: solid;
+    border-color: yellow;
+}
+
+.carousel-item{
+    max-height: 640px;
+    max-width: 426px;
+    text-align: center;
+  }
