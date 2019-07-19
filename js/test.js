@@ -3,10 +3,9 @@ var usertoken = "";
 var hostplaylist = "";
 var mergesong = "";
 var mergeplaylist;
-var siteid = "314tn8lrwdckwt5nj3i214u2b";
-var siteplaylist_url = "https://api.spotify.com/v1/users/"+siteid+"/playlists";
+var siteplaylist_url = "https://api.spotify.com/v1/users/314tn8lrwdckwt5nj3i214u2b/playlists";
 
-//calls needed function on page load
+//calls needed functions on page load
 function start()
 {
 	checksiteAccess();
@@ -77,6 +76,15 @@ function addSong()
 	retreive.setRequestHeader("Authorization", "Bearer "+token);
 	retreive.send(JSON.stringify(params));
 	var obj = JSON.parse(retreive.responseText);
+	
+	if (obj !== 201)
+    {
+        //place error return here
+    }
+	else
+	{
+		//otherwise song has been added to playlist
+	}
 }
 
 function addPlaylist()
@@ -99,6 +107,15 @@ function removeSong()
 	retreive.setRequestHeader("Authorization", "Bearer "+token);
 	retreive.send(JSON.stringify(params));
 	var obj = JSON.parse(retreive.responseText);
+	
+	if (obj !== 200)
+    {
+        //place error return here
+    }
+	else
+	{
+		//otherwise song has been removed from playlist
+	}
 }
 
 //search for tracks to add to host playlist
