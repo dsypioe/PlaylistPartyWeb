@@ -1,7 +1,7 @@
 var token = "";
 var usertoken = "";
 var hostplaylist = "";
-var mergesong;
+var mergesong = "";
 var mergeplaylist;
 var siteid = "314tn8lrwdckwt5nj3i214u2b";
 var siteplaylist_url = "https://api.spotify.com/v1/users/"+siteid+"/playlists";
@@ -59,12 +59,24 @@ function createplaylist()
 	
 	//retreive the playlist id to store for room
 	hostplaylist = obj.id;
-	document.getElementById("hostplaylist_info").innerHTML = "created playlist "+name+" with id "+hostplaylist;
+	//document.getElementById("hostplaylist_info").innerHTML = "created playlist "+name+" with id "+hostplaylist;
 }
 
 function addSong()
 {
 	checksiteAccess();
+	
+	var params = {
+		"uris":"spotify:track:"+mergesong,
+	};
+	
+	//sends post request to create playlist with entered name on spotify
+	var retreive = new XMLHttpRequest();
+	retreive.open("POST", "https://api.spotify.com/v1/playlists/"+hostplaylist+"/tracks", false);
+	retreive.setRequestHeader("Content-Type", "application/json");
+	retreive.setRequestHeader("Authorization", "Bearer "+token);
+	retreive.send(JSON.stringify(params));
+	var obj = JSON.parse(retreive.responseText);
 }
 
 function addPlaylist()
@@ -75,6 +87,18 @@ function addPlaylist()
 function removeSong()
 {
 	checksiteAccess();
+	
+	var params = {
+		"tracks":[{"uri": "spotify:"+mergesong}],
+	};
+	
+	//sends post request to create playlist with entered name on spotify
+	var retreive = new XMLHttpRequest();
+	retreive.open("DELETE", "https://api.spotify.com/v1/playlists/"+hostplaylist+"/tracks", false);
+	retreive.setRequestHeader("Content-Type", "application/json");
+	retreive.setRequestHeader("Authorization", "Bearer "+token);
+	retreive.send(JSON.stringify(params));
+	var obj = JSON.parse(retreive.responseText);
 }
 
 //search for tracks to add to host playlist
@@ -101,7 +125,7 @@ function search()
 	var albums = JSON.stringify(obj.albums);
 	
 	//this just prints out the entire JSON object of what tracks come up from the search query. for testing
-	document.getElementById("searchinfo").innerHTML = tracks;
+	//document.getElementById("searchinfo").innerHTML = tracks;
 }
 
 //reads the implicit token from the redirect and hides it from the url
@@ -124,7 +148,7 @@ function readimplicitAccess()
 	let _token = hash.access_token;
 	usertoken = _token;
 	
-	//sends request to spotify to grab users playlist, which they will be able to scne through or add as whole to host
+	//sends request to spotify to grab users playlist, which they will be able to scan through or add as whole to host
 	var retreive = new XMLHttpRequest();
 	retreive.open("GET", "https://api.spotify.com/v1/me/playlists", false);
 	retreive.setRequestHeader("Content-type", "application/json");
@@ -133,7 +157,7 @@ function readimplicitAccess()
 	var obj = JSON.parse(retreive.responseText);
 	var userplaylist = obj;
 	
-	document.getElementById("userplaylist").innerHTML = JSON.stringify(userplaylist);
+	//document.getElementById("userplaylist").innerHTML = JSON.stringify(userplaylist);
 }
 
 //allows implicit access from users spotify account to pull up their playlist/liked songs
