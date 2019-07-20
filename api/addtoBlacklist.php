@@ -1,4 +1,6 @@
 <?php
+//this script adds a song to the blacklist table
+
 	$inData = getRequestInfo();
 	
 	$roomid = $inData["roomid"];

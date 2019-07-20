@@ -1,12 +1,7 @@
 <?php
-//this script creates a new room in the database and returns the room id
-
+//this script is what get calls when someone attempts to join a room, and upon success returns the room id and playlist id
 	$inData = getRequestInfo();
 	
-	$joincode = $inData["joincode"];
-	$playlistid = $inData["playlistid"];
-	
-	// connects to database and inserts data into room table for created room
 	$conn = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
 	if ($conn->connect_error) 
 	{
@@ -14,21 +9,16 @@
 	} 
 	else
 	{
-		$sql = "INSERT INTO Room (playlistid, joincode) VALUES ('" . $playlistid . "','" . $joincode . "')";
-		if( $result = $conn->query($sql) != TRUE )
-		{
-			returnWithError( $conn->error );
-		}
-		// Get data if contact data belongs to user.
-		$getroomid = "SELECT id FROM Room WHERE joincode= '" . $inData["joincode"] . "' and playlistid= '" . $inData["playlistid"] . "'"; 
-		$result2 = $conn->query($getroomid);
+		$sql = "SELECT id, joincode, playlistid FROM Room where joincode='" . $inData["joincode"] . "' ";
+		$result = $conn->query($sql);
 		
-		if ($result2->num_rows > 0)
+		if ($result->num_rows > 0)
 		{
             $row = $result->fetch_assoc();
             $id = $row["id"]; 
+            $playlistid = $row["playlistid"]; 
             
-			returnWithInfo($id);
+			returnWithInfo($id, $playlistid);
 		}
 		
 		// no matching user row in database
@@ -60,9 +50,9 @@
 	}
 	
 	// return json with blank error field
-	function returnWithInfo( $id )
+	function returnWithInfo( $id, $playlistid )
 	{
-		$retValue =   '{"id":' . $id . ',"error":""}';
+		$retValue =   '{"id":' . $id . ',"playlistid":"' . $playlistid . '","error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
