@@ -11,8 +11,8 @@
 	} 
 	else
 	{
-		$sql = "SELECT songid FROM Playlist (roomid, songid) VALUES ('" . $roomid . "','" . $songid . "')";
-		if( $result = $conn->query($sql) != TRUE )
+		$sql = $conn->query("SELECT songid FROM Playlist WHERE roomid='" . $inData["roomid"] . "' AND songid='" . $inData["songid"] . "'");
+		if($sql->num_rows == 0)
 		{
 			notDuplicate();
 		}

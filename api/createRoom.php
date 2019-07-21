@@ -19,20 +19,9 @@
 		{
 			returnWithError( $conn->error );
 		}
-		$getroomid = "SELECT id FROM Room WHERE joincode= '" . $inData["joincode"] . "' and playlistid= '" . $inData["playlistid"] . "'"; 
-		$result2 = $conn->query($getroomid);
-		
-		if ($result2->num_rows > 0)
-		{
-            $row = $result->fetch_assoc();
-            $id = $row["id"]; 
-            
-			returnWithInfo($id);
-		}
-		
-		else
-		{
-			returnWithError( "Room does not exist" );
+		else{
+			$last_id = $conn->insert_id;
+			returnWithInfo($last_id);
 		}
 		$conn->close();
 	}

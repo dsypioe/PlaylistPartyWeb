@@ -11,12 +11,11 @@
 	} 
 	else
 	{
-		$sql = "SELECT songid FROM Blacklist where roomid='" . $inData["roomid"] . "' and  songid='" . $inData["songid"] . "'";
-		if( $result = $conn->query($sql) != TRUE )
-		{
+		$sql = $conn->query("SELECT songid FROM Blacklist WHERE roomid='" . $inData["roomid"] . "' AND songid='" . $inData["songid"] . "'");
+		if($sql->num_rows == 0) {
 			songNotBlacklisted();
-		}
-		else{
+		} 
+		else {
 			songIsBlacklisted();
 		}
 		$conn->close();
