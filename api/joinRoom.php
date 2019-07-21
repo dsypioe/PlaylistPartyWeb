@@ -2,6 +2,7 @@
 //this script is what get calls when someone attempts to join a room, and upon success returns the room id and playlist id
 	$inData = getRequestInfo();
 	
+	//connects to the database and checks if the joincode exist
 	$conn = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
 	if ($conn->connect_error) 
 	{
@@ -49,7 +50,7 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	// return json with blank error field
+	// upon success, returns the roomid and the playlist id for the room
 	function returnWithInfo( $id, $playlistid )
 	{
 		$retValue =   '{"id":' . $id . ',"playlistid":"' . $playlistid . '","error":""}';

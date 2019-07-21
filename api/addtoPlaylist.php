@@ -1,12 +1,9 @@
 <?php
-//this script adds a song to the blacklist table
-
+	//this script adds song to playlist table to easily keep info on the tracks in a rooms playlist
+	
 	$inData = getRequestInfo();
 	
-	$roomid = $inData["roomid"];
-	$songid = $inData["songid"];
-	
-	// connects to the database and adds a song to the blacklist
+	// connects to database and adds song and info to playlist table
 	$conn = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
 	if ($conn->connect_error) 
 	{
@@ -14,13 +11,13 @@
 	} 
 	else
 	{
-		$sql = "INSERT INTO Blacklist (roomid, songid) VALUES ('" . $roomid . "','" . $songid . "')";
+		$sql = "INSERT INTO Playlist (roomid, songname, songid, artist, artlink) VALUES ('" . $roomid . "','" . $songname . "','" . $songid . "','" . $artist . "','" . $artlink . "')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
-			returnWithError( $conn->error );
+			returnWithError($conn->error);
 		}
 		else{
-			returnSuccess();
+			 returnSuccess();
 		}
 		$conn->close();
 	}
@@ -37,18 +34,18 @@
 		$retValue = '{"status":"200"}';
 		sendResultInfoAsJson( $retValue );
 	}
-
-    // send json
+	
+	// return json with error message
+	function returnWithError($err)
+	{
+		$retValue = '{"error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
+	}
+	
+	// send json
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
 		echo $obj;
-	}
-	
-	// return json with error message, if successful a blank error feild is retunred
-	function returnWithError( $err )
-	{
-		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
 	}
 ?>

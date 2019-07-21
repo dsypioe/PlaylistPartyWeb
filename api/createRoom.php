@@ -19,7 +19,6 @@
 		{
 			returnWithError( $conn->error );
 		}
-		// Get data if contact data belongs to user.
 		$getroomid = "SELECT id FROM Room WHERE joincode= '" . $inData["joincode"] . "' and playlistid= '" . $inData["playlistid"] . "'"; 
 		$result2 = $conn->query($getroomid);
 		
@@ -31,10 +30,9 @@
 			returnWithInfo($id);
 		}
 		
-		// no matching user row in database
 		else
 		{
-			returnWithError( "No Records Found" );
+			returnWithError( "Room does not exist" );
 		}
 		$conn->close();
 	}
@@ -59,7 +57,7 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	// return json with blank error field
+	// upon successful creation of room, returns the room id 
 	function returnWithInfo( $id )
 	{
 		$retValue =   '{"id":' . $id . ',"error":""}';
