@@ -55,11 +55,11 @@
     // return json with data
 	function returnWithInfo( $dataArray )
 	{
-		$retValue = json_encode($dataArray, JSON_FORCE_OBJECT);
+		$retValue = json_encode(array('item' => $dataArray), JSON_FORCE_OBJECT);
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	// send json, which will be a json object, with subclasses songname, songid, artist, and artlink 
+	// send json, which will be a json object called item, with subitems songname, songid, artist, and artlink 
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
