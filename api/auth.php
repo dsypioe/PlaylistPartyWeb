@@ -34,9 +34,10 @@ function checkToken($key)
 	
 	$data = curl_exec($ch);
 	$err = curl_error($ch);
+	$stat = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	curl_close($ch);
 	
-	if($data === 400 || $data === 401)
+	if($stat !== 200)
 	{
 		getToken();
 	}
