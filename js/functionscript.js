@@ -5,13 +5,22 @@ var hostplaylist = "";//this holds the spotify playlist id for the rooms playlis
 var mergesong;//when adding a song to the playlist, this will hold the entire track object for the song to be added
 var delsong;//this just holds the spotify id for the song to be deleted from the playlist
 var roomid;//this holds the room id for the room, is used in a lot of our API calls
+var joincode = "";//holds the joincode to display to user to share with others to join room
 var siteplaylist_url = "https://api.spotify.com/v1/users/314tn8lrwdckwt5nj3i214u2b/playlists";//the url used to publish playlist on apps spotify account
 
-//calls needed functions on page load
-function start()
+//calls needed functions on landing page load
+function landingstart()
 {
 	checksiteAccess();
 	readimplicitAccess();
+}
+
+//calls needed funtions on home page load
+function homestart()
+{
+	checksiteAccess();
+	readimplicitAccess();
+	readsessionPHP();
 }
 
 //checks sites authorization token for site spotify account, called at beginning of every function
@@ -82,6 +91,9 @@ function createRoom()
 	
 	//creates the room on our databse and returns the roomid
 	createroomPHP(joinstring);
+	
+	//writes session variables
+	writesessionPHP();
 }
 
 //this is what allows a user to join a room
@@ -101,6 +113,7 @@ function joinRoom()
 	}
 	else{
 		//join worked fine
+		writesessionPHP();
 	}
 }
 
@@ -136,7 +149,7 @@ function addSong()
 	
 	if (stat !== 201)
     {
-        //place error return here
+        //apparently spotify is down
     }
 	else
 	{
@@ -165,7 +178,7 @@ function removeSong()
 	
 	if (stat !== 200)
     {
-        //place error return here
+        //spotify is down again
     }
 	else
 	{
@@ -372,4 +385,27 @@ function checkduplicatejoincodePHP(joinstring)
 	
 	//if 200 is returned join code is okay to use, if 400 is returned joincode can not be used
 	return obj.status;
+}
+
+function writesessionPHP()
+{
+	var payload = '{"roomid" : "' + roomid + '", "joincode" : "' + joincode + '", "playlistid" : "' + hostplaylist + '"}';
+	var retreive = new XMLHttpRequest();
+	retreive.open("POST", "http://www.playlistparty.live/api/writeSession.php", false);
+	retreive.setRequestHeader("Content-Type", "application/json");
+	retreive.send(payload);
+}
+
+function readsessionPHP()
+{
+	var payload = '{"roomid" : "' + roomid + '", "joincode" : "' + joincode + '", "playlistid" : "' + hostplaylist + '"}';
+	var retreive = new XMLHttpRequest();
+	retreive.open("POST", "http://www.playlistparty.live/api/readSession.php", false);
+	retreive.setRequestHeader("Content-Type", "application/json");
+	retreive.send(payload);
+	var obj = JSON.parse(retreive.responseText);
+	
+	roomid = obj.roomid;
+	joincode = obj.joincode;
+	hostplaylist = obj.playlistid;
 }
