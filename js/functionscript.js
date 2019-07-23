@@ -23,6 +23,7 @@ function homestart()
 	readsessionPHP();
 }
 
+/*
 //checks sites authorization token for site spotify account, called at beginning of every function
 function checksiteAccess()
 {
@@ -37,9 +38,10 @@ function checksiteAccess()
         getnewToken();
     }
 }
+*/
 
 //retrieves new token as needed for sites spotify account
-function getnewToken()
+function checksiteAccess()
 {
 	var retreive = new XMLHttpRequest();
 	retreive.open("GET", "http://www.playlistparty.live/api/auth.php", false);
@@ -99,8 +101,6 @@ function createRoom()
 //this is what allows a user to join a room
 function joinRoom()
 {
-	checksiteAccess();
-	
 	//grabs the join code entered by the user
 	var joinstring = document.getElementById('joinstring').value;
 	
