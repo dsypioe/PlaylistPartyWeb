@@ -132,8 +132,9 @@ function addSong()
 	retreive.setRequestHeader("Authorization", "Bearer "+token);
 	retreive.send(JSON.stringify(params));
 	var obj = JSON.parse(retreive.responseText);
+	var stat = JSON.parse(retreive.status);
 	
-	if (obj !== 201)
+	if (stat !== 201)
     {
         //place error return here
     }
@@ -160,8 +161,9 @@ function removeSong()
 	retreive.setRequestHeader("Authorization", "Bearer "+token);
 	retreive.send(JSON.stringify(params));
 	var obj = JSON.parse(retreive.responseText);
+	var stat = JSON.parse(retreive.status);
 	
-	if (obj !== 200)
+	if (stat !== 200)
     {
         //place error return here
     }
@@ -203,12 +205,10 @@ function readimplicitAccess()
 	var userplaylist = obj;
 }
 
-//allows implicit access from users spotify account to pull up their playlist/liked songs
+//allows implicit access from users spotify account
 function getimplicitAccess()
 {
 	const authEndpoint = 'https://accounts.spotify.com/authorize';
-
-	// Replace with your app's client ID, redirect URI and desired scopes
 	const clientId = '278e5d01c2ce44a3858e4e38836be46b';
 	const redirectUri = 'http://www.playlistparty.live';
 
