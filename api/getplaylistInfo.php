@@ -11,7 +11,6 @@
 	} 
 	else
 	{
-		// Get data if contact data belongs to user.
 		$sql = "SELECT songname, songid, artist, artlink FROM Playlist WHERE roomid= '" . $inData["roomid"] . "'"; 
 		$result = $conn->query($sql);
 		
@@ -31,7 +30,7 @@
 			returnWithInfo($playlistArray);
 		}
 		
-		// no contacts belonging to user in contacts table
+		//there are no songs in playlist
 		else
 		{
 			returnWithError( $errorArray );

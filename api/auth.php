@@ -1,8 +1,52 @@
 <?php
 //this retains Oauth for sites spotify profile where playlist will be published
-
 //access token expires after set ammount of time, this stores the refresh token that allows us to get new access tokens as they
 //are needed
+
+	$conn = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
+	if ($conn->connect_error) 
+	{
+		returnWithError( $conn->connect_error );
+	} 
+	else
+	{
+		$sql = "SELECT token FROM Auth WHERE id= '1'";
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0)
+		{
+            $row = $result->fetch_assoc();
+            $token = $row["token"]; 
+		}
+		$conn->close();
+		checkToken($token);
+	}
+	
+function checkToken($key)
+{
+	$ch = curl_init();
+	//$headers = 'Authorization: Bearer '.$key;
+	curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/users/314tn8lrwdckwt5nj3i214u2b/playlists");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
+				'Authorization: Bearer '.$key
+	));
+	
+	$data = curl_exec($ch);
+	$err = curl_error($ch);
+	curl_close($ch);
+	
+	if($data === 400 || $data === 401)
+	{
+		getToken();
+	}
+	else{
+		sendOtherJson($key);
+	}
+}
+
+function getToken()
+{
 	$info = array(
 		'refresh_token' => 'AQDav4JRFtK3mepZWNizXJcwINeMh0QroYAjq0ythB1kbArnA0sTeqq_AUqTbKZ75U27_6J7RNe4mdnq2NymCDwmTP0AHNUKixo6RoIbtc2a7xcdPzJ9JIJWQQIn0rknST2ABA',
 		'grant_type' => 'refresh_token'
@@ -29,6 +73,21 @@
 	} else {
 		returnWithInfo($data);
 	}
+}
+
+function storekey($newtoken)
+{
+	$conn2 = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
+	if ($conn2->connect_error) 
+	{
+		returnWithError( $conn2->connect_error );
+	} 
+	else
+	{
+		$sql = "UPDATE Auth SET token = $newtoken WHERE id = 1";
+		$result = $conn2->query($sql);
+	}
+}
 	
 	function returnWithError( $err )
 	{
@@ -44,6 +103,13 @@
 	{
 		header('Content-type: application/json');
 		$grab = json_decode($obj);
+		$send = $grab->access_token;
+		storekey(json_encode($send));
 		echo json_encode($grab->access_token);
+	}
+	
+	function sendOtherJson($obj)
+	{
+		echo json_encode($obj);
 	}
 ?>

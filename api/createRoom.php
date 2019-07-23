@@ -42,14 +42,14 @@
 	// return json with error message
 	function returnWithError( $err )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '","status":"400"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	// upon successful creation of room, returns the room id 
 	function returnWithInfo( $id )
 	{
-		$retValue =   '{"id":' . $id . ',"error":""}';
+		$retValue =   '{"id":' . $id . ',"status":"200"}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>

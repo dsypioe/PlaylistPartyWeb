@@ -46,14 +46,14 @@
 	// return json with error message
 	function returnWithError( $err )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '","status":"400"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
 	// upon success, returns the roomid and the playlist id for the room
 	function returnWithInfo( $id, $playlistid )
 	{
-		$retValue =   '{"id":' . $id . ',"playlistid":"' . $playlistid . '","error":""}';
+		$retValue =   '{"id":' . $id . ',"playlistid":"' . $playlistid . '","error":"","status":"200"}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
