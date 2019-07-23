@@ -5,6 +5,7 @@
 	
 	$joincode = $inData["joincode"];
 	$playlistid = $inData["playlistid"];
+	$playlistname = $inData["playlistname"];
 	
 	// connects to database and inserts data into room table for created room
 	$conn = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
@@ -14,7 +15,7 @@
 	} 
 	else
 	{
-		$sql = "INSERT INTO Room (playlistid, joincode) VALUES ('" . $playlistid . "','" . $joincode . "')";
+		$sql = "INSERT INTO Room (playlistid, joincode, playlistname) VALUES ('" . $playlistid . "','" . $joincode . "','" . $playlistname . "')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
 			returnWithError( $conn->error );

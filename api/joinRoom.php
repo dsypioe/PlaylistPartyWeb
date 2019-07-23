@@ -10,7 +10,7 @@
 	} 
 	else
 	{
-		$sql = "SELECT id, joincode, playlistid FROM Room where joincode='" . $inData["joincode"] . "' ";
+		$sql = "SELECT id, joincode, playlistid, playlistname FROM Room where joincode='" . $inData["joincode"] . "' ";
 		$result = $conn->query($sql);
 		
 		if ($result->num_rows > 0)
@@ -18,8 +18,9 @@
             $row = $result->fetch_assoc();
             $id = $row["id"]; 
             $playlistid = $row["playlistid"]; 
+			$playlistname = $row["playlistname"];
             
-			returnWithInfo($id, $playlistid);
+			returnWithInfo($id, $playlistid, $playlistname);
 		}
 		
 		// no matching user row in database
@@ -51,9 +52,9 @@
 	}
 	
 	// upon success, returns the roomid and the playlist id for the room
-	function returnWithInfo( $id, $playlistid )
+	function returnWithInfo( $id, $playlistid, $playlistname )
 	{
-		$retValue =   '{"id":' . $id . ',"playlistid":"' . $playlistid . '","error":"","status":"200"}';
+		$retValue =   '{"id":' . $id . ',"playlistid":"' . $playlistid . '","playlistname":"' . $playlistname . '","error":"","status":"200"}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
