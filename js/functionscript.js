@@ -387,6 +387,21 @@ function checkduplicatejoincodePHP(joinstring)
 	return obj.status;
 }
 
+//this function calls our close rom API, deleteing all data associated with the current room id
+function closeroomPHP()
+{
+	var params = {
+		"roomid":roomid,
+	};
+	
+	var retreive = new XMLHttpRequest();
+	retreive.open("POST", "http://www.playlistparty.live/api/closeRoom.php", false);
+	retreive.setRequestHeader("Content-Type", "application/json");
+	retreive.send(JSON.stringify(params));
+	var obj = JSON.parse(retreive.responseText);
+}
+
+//this writes the needed session variables from the landing page
 function writesessionPHP()
 {
 	var payload = '{"roomid" : "' + roomid + '", "joincode" : "' + joincode + '", "playlistid" : "' + hostplaylist + '"}';
@@ -396,6 +411,7 @@ function writesessionPHP()
 	retreive.send(payload);
 }
 
+//this retreives the needed seesion variables for the homepage
 function readsessionPHP()
 {
 	var payload = '{"roomid" : "' + roomid + '", "joincode" : "' + joincode + '", "playlistid" : "' + hostplaylist + '"}';
