@@ -154,7 +154,7 @@ function addSong()
 	else
 	{
 		//upon success adding song to spotify playlist, adds to our playlist table for site use
-		addtoplaylistPHP(mergesong.id, mergesong.name, mergesong.artists, mergesong.album.images[0].url);
+		addtoplaylistPHP(mergesong.id, mergesong.name, mergesong.artists, mergesong.album.images[2].url);
 	}
 }
 
