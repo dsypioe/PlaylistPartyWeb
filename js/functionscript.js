@@ -340,7 +340,7 @@ function checkduplicateplaylistPHP(songid)
 function getplaylistinfoPHP()
 {
 	var params = {
-		"roomid":roomid,
+		"playlistid":hostplaylist,
 		"token":token,
 	};
 	
