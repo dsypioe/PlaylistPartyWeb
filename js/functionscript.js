@@ -341,6 +341,7 @@ function getplaylistinfoPHP()
 {
 	var params = {
 		"roomid":roomid,
+		"token":token,
 	};
 	
 	var retreive = new XMLHttpRequest();
