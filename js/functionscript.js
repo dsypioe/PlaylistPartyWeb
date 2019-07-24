@@ -236,6 +236,7 @@ function createroomPHP(joinstring)
 	var params = {
 		"joincode":joinstring,
 		"playlistid":hostplaylist,
+		"playlistname":playlistname,
 	};
 	
 	var retreive = new XMLHttpRequest();
@@ -263,6 +264,7 @@ function joinRoomPHP(joinstring)
 	
 	roomid = obj.id;
 	hostplaylist = obj.playlistid;
+	playlistname = obj.playlistname;
 	
 	//returns 200 if successful join, return 400 if not
 	return obj.status;
