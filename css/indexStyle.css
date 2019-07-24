@@ -1,43 +1,55 @@
-
-/* Spotify color scheme */
-/* Green = #84bd00 */
-/* Black = #000000 */
-/* Grey = #828282 */
-/* Sand = #ecebe8 */
-/* White = #ffffff */
-
-
-body, html{
-
-    background-color: #686868;
-    height: 100;
-    width: 100;
-}
-
-.titleCenter{
-    text-align: center;
-    color: white;
-}
-
-
-.container-fluid{
-    border-style: solid;
-    border-color: red;
-}
-.col-sm{
-    border-style: solid;
-    border-color: green;
-    text-align: center;
+.top-bar {
+  background-color: #4CAF50;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left : 0;
+  border-bottom: 1px solid black;
 
 }
-
-.container{
-    border-style: solid;
-    border-color: yellow;
+.top-bar p {
+  position: relative;
+  bottom: 15px;
+  font-weight: bold;
+  font-size:25px;
+  color: black;
 }
+.btn-group button {
+  background-color: #4CAF50; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  border-radius: 15px;
+  width: 175px;
+  height: 35px;
+  cursor: pointer; /* Pointer/hand icon */
+  margin-left: 62.5px;
+}
+.btn-group {
+  border-radius: 25px;
+  background: #1DB954;
+  padding: 20px;
+  width: 300px;
+  height: 200px;
+  border: 2px solid #000000;
+  display:block;
+  margin:0 auto;
+  margin-top: 100px;
+}
+.btn-group b {
+  font-size: 20px;
+  margin-left: 65px;
+  margin-right: 100px;
+}
+.btn-group input {
+  width: 170px;
+  height: 20px;
+  margin-left: 65px;
+  margin-right: 65px;
+  border-radius: 10px;
+  text-indent: 5px;
+  font-size: 14px;
+  border: none;
 
-.carousel-item{
-    max-height: 640px;
-    max-width: 426px;
-    text-align: center;
-  }
+}
