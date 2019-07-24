@@ -1,3 +1,11 @@
+/* Spotify color scheme */
+/* Green = #84bd00 */
+/* Black = #000000 */
+/* Grey = #828282 */
+/* Sand = #ecebe8 */
+/* White = #ffffff */
+
+/* This is the header bar */
 .top-bar {
   background-color: #4CAF50;
   text-align: center;
@@ -8,6 +16,7 @@
   left : 0;
   border-bottom: 1px solid black;
 
+ /* This is the text within the header bar */
 }
 .top-bar p {
   position: relative;
@@ -16,6 +25,8 @@
   font-size:25px;
   color: black;
 }
+
+  /* These are for the green buttons within the button group */
 .btn-group button {
   background-color: #4CAF50; /* Green background */
   border: 1px solid green; /* Green border */
@@ -26,6 +37,8 @@
   cursor: pointer; /* Pointer/hand icon */
   margin-left: 62.5px;
 }
+
+  /* This is for the green space where the buttons and input fields are located, the button group */
 .btn-group {
   border-radius: 25px;
   background: #1DB954;
@@ -37,11 +50,15 @@
   margin:0 auto;
   margin-top: 100px;
 }
+
+  /* This is for the black bolded text within the button group */
 .btn-group b {
   font-size: 20px;
   margin-left: 65px;
   margin-right: 100px;
 }
+
+  /* The input fields within the button group. */
 .btn-group input {
   width: 170px;
   height: 20px;
