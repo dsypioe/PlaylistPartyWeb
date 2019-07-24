@@ -304,7 +304,7 @@ function checkblacklistPHP(songid)
 }
 
 //this is the server script for adding song info to the playlist table
-function addtoplaylistPHP(songid, songname)
+function addtoplaylistPHP(songid)
 {
 	var params = {
 		"roomid":roomid, 
@@ -350,7 +350,16 @@ function getplaylistinfoPHP()
 	var obj = JSON.parse(retreive.responseText);
 	
 	//returns a mess of info, will work on parsing it correctly
-	return obj;
+	var playlistlength = obj.items.length;
+	for(var i = 0; i < playlistlength; i++)
+	{
+		var songname = obj.items[i].track.name;
+		var songartist = obj.items[i].track.artists[0].name;
+		var songalbum = obj.items[i].track.album.name;
+		var albumimage = obj.items[i].track.album.images[2];
+		
+		//this should grab everything that is needed, just needs to be displayed on table
+	}
 }
 
 //this is the server script for removing a song from the playlist table
