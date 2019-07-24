@@ -4,10 +4,10 @@
 	$inData = getRequestInfo();
 	
 	$roomid = $inData["roomid"];
-	$songname = $inData["songname"];
 	$songid = $inData["songid"];
-	$artist = $inData["artist"];
-	$artlink = $inData["artlink"];
+	//$songname = $inData["songname"];
+	//$artist = $inData["artist"];
+	//$artlink = $inData["artlink"];
 	
 	// connects to database and adds song and info to playlist table
 	$conn = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
@@ -17,7 +17,7 @@
 	} 
 	else
 	{
-		$sql = "INSERT INTO Playlist (roomid, songname, songid, artist, artlink) VALUES ('" . $roomid . "','" . $songname . "','" . $songid . "','" . $artist . "','" . $artlink . "')";
+		$sql = "INSERT INTO Playlist (roomid, songid) VALUES ('" . $roomid . "','" . $songid . "')";
 		if( $result = $conn->query($sql) != TRUE )
 		{
 			returnWithError($conn->error);

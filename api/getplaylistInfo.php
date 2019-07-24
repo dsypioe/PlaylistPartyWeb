@@ -1,41 +1,30 @@
 <?php
-	//this script gets the information of the room playlist, can be used instead of direct calls to spotify api
 	
 	$inData = getRequestInfo();
+	$playlistid = $inData["playlistid"];
+	$token = $inData["token"];
+	$url = "https://api.spotify.com/v1/playlists/".$playlistid."/tracks";
 	
-	// connects to database and gets playlist info
-	$conn = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
-	if ($conn->connect_error) 
-	{
-		returnWithError( $conn->connect_error );
-	} 
-	else
-	{
-		$sql = "SELECT songname, songid, artist, artlink FROM Playlist WHERE roomid= '" . $inData["roomid"] . "'"; 
-		$result = $conn->query($sql);
-		
-		if ($result->num_rows > 0)
-		{
-            // Add contact to array.
-            while($row = $result->fetch_assoc())
-            {
-                $songname = $row["songname"]; 
-                $songid = $row["songid"]; 
-                $artist = $row["artist"]; 
-                $artlink = $row["artlink"];
-                
-                $playlistArray = array('songname'=>$songname, 'songid'=>$songid, 'artist'=>$artist, 'artlink'=>$artlink);
-            }
+	$curl = curl_init();
 
-			returnWithInfo($playlistArray);
-		}
-		
-		//there are no songs in playlist
-		else
-		{
-			returnWithError( $errorArray );
-		}
-		$conn->close();
+	curl_setopt_array($curl, array(
+	  CURLOPT_URL => $url,
+	  CURLOPT_RETURNTRANSFER => true,
+	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	  CURLOPT_CUSTOMREQUEST => "GET",
+	  CURLOPT_HTTPHEADER => array(
+		'Authorization: Bearer '.$token,
+	  ),
+	));
+
+	$response = curl_exec($curl);
+	$err = curl_error($curl);
+	curl_close($curl);
+
+	if ($err) {
+	  echo "error:" . $err;
+	} else {
+	  returnWithInfo( $response );
 	}
 	
 	// get json data
@@ -44,21 +33,28 @@
 		return json_decode(file_get_contents('php://input'), true);
 	}
 	
-	// return json with error message
-	function returnWithError( $err )
+	function returnWithInfo( $data )
 	{
-		$retValue = json_encode($err);
-		sendResultInfoAsJson( $retValue, JSON_FORCE_OBJECT);
-	}
-
-    // return json with data
-	function returnWithInfo( $dataArray )
-	{
-		$retValue = json_encode(array('item' => $dataArray), JSON_FORCE_OBJECT);
+		/*
+		$info = json_decode($data, true);
+		//$info2 = $info->items;
+		foreach($info->items as $obj) 
+		{
+			$songname = $obj->track->name; 
+            $artist = $obj->track->artist->0->name; 
+            $artlink = $obj->track->album->images->2;
+			$albumname = $obj->track->album->name;
+			
+			$playlistinfo[] = array($songname, $artist, $artlink, $albumname);
+		}
+		
+		$playlist = json_encode($playlistinfo);
+		$retValue = json_encode(array('item' => $playlist), JSON_FORCE_OBJECT);
 		sendResultInfoAsJson( $retValue );
+		//*/
+		sendResultInfoAsJson( $data);
 	}
 	
-	// send json, which will be a json object called item, with subitems songname, songid, artist, and artlink 
 	function sendResultInfoAsJson( $obj )
 	{
 		header('Content-type: application/json');
