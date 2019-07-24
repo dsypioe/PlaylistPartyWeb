@@ -1,0 +1,163 @@
+<!-- Playlist Party's Home Screen -->
+
+<!doctype html>
+
+<html lang="en">  <!--Sets the main language to english-->
+  <head>
+    <!--Title of the webpage-->
+    <title> Playlist Party | Home</title>  
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Home Page CSS -->
+    <link rel="stylesheet" href="../css/homeStyle.css">
+     <script type="text/javascript" src="../js/test.js"></script>
+
+
+
+
+
+    
+  </head>
+
+  <!-- On the loading of the HTML body, the displayRoom() function is called -->
+  <!-- and will display the room name and number -->
+  <body onload="start()">
+
+    <!-- topnav contains the essential elements of the webpage -->
+    <div class="topnav">
+    <h3 id="roomName"></h3>                               <!--Displays the room name-->
+      <h3 id="roomNumber"></h3>                           <!--Displays the room number that you are in-->
+      <button type=button href="../index.html">Exit</a>   <!--Exits back to landing page-->
+    </div>  <!-- End of the topNav element-->
+
+    <!-- masterContainer holds all of the pages elements -->
+    <div class="container-fluid" id="masterContainer">
+        
+        <!-- Shanes Code-->
+        <button onclick="getimplicitAccess()">implicit user access</button>
+        <button onclick="getUserPlaylist()">load user playlist</button>
+
+
+		<p id="userplaylist"></p>
+
+
+		<input type="text" id="playlistid" value="playlist name">
+
+
+		<p><button onclick="createplaylist()">Create Playlist</button></p>
+
+
+
+		<p id="hostplaylist_info"></p>
+
+
+
+		
+		
+		
+		
+		<!--Shane's Code-->
+    
+      <!-- selectorContainer contains the selector to switch between adding songs and viewing the playlis -->
+      <div class="container" id="selectorContainer">
+        <div class="row" id="selectorRow">
+          <div class="col" id="selectorCol">
+              <button type="button" class="btn btn-primary" onclick="disableSearchBar()">View Playlist</button>
+              <butoon type="button" class="btn btn-primary" onclick="enableSearchBar()">Add Songs</button>
+          </div>   <!--end of the selectorCol-->
+        </div>     <!--End of the selectorRow-->
+      </div>       <!-- End of the selectorContainer-->
+
+      <!-- searchContainer contains the searchbar for searching songs -->
+      <div class="container" id="searchContainer">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search" name="search" id="searchBar" onkeypress="handleSearchButton(event)">
+          <div class="input-group-btn">
+              <span class="glyphicon glyphicon-search">
+            <button type="button" class="btn btn-primary" id="searchButton" onclick="searchbarSearch()">Search</button>
+          </div>
+        </div>
+      </div>  <!-- End of the searchContainer-->
+      
+      <div class="container" id="tableContainer">
+        <table class="table table-striped table-bordered table-hover" id="songTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Album Art</th>
+                    <th onclick="songSort()">Song</th>
+                    <th onclick="artistSort()">Artist</th>
+                    <th onclick="albumSort()">Album</th>
+                    <th>Add/Remove Song</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>Album Art</th>
+                    <th>Song</th>
+                    <th>Artist</th>
+                    <th>Album</th>
+                    <th>Add/Remove Song</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+            
+        </table>
+        
+      </div>
+
+  
+    </div><!-- End of the masterContainer-->
+    
+    
+    <p id="searchinfo"></p> <!-- Shanes code = displays the search info (json)-->
+   
+
+       <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <script src="js/dataTables.bootstrap.min.js"></script>
+  </body>
+</html>
+
+<script>
+  var roomName = "Wallaby";
+  var roomNumber = 123;
+
+
+  function enableSearchBar(){
+    var x = document.getElementById("searchBar");
+    x.style.visibility = "visible";
+  }
+
+  function disableSearchBar(){
+    var x = document.getElementById("searchBar");
+    x.style.visibility = "hidden";
+  }
+
+
+
+  
+  
+  
+ 
+  
+  
+  
+  </script>
