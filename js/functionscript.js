@@ -304,14 +304,11 @@ function checkblacklistPHP(songid)
 }
 
 //this is the server script for adding song info to the playlist table
-function addtoplaylistPHP(songid, songname, artist, artlink)
+function addtoplaylistPHP(songid, songname)
 {
 	var params = {
 		"roomid":roomid, 
 		"songid":songid, 
-		"songname":songname, 
-		"artist":artist, 
-		"artlink":artlink,
 	};
 	
 	var retreive = new XMLHttpRequest();
@@ -352,8 +349,7 @@ function getplaylistinfoPHP()
 	retreive.send(JSON.stringify(params));
 	var obj = JSON.parse(retreive.responseText);
 	
-	//will return array of JSON objects called item, with sub-classes songname, songid, artist, and artlink
-	//can be used in return with obj.item['item number here'].'subclass here'
+	//returns a mess of info, will work on parsing it correctly
 	return obj;
 }
 
