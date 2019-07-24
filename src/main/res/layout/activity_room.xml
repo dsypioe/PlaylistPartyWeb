@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/colorSpotifyBlack"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CreateActivity">
+
+    <TextView
+            android:textColor="@color/colorWhite"
+            android:id="@+id/playlist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/playlist_name_display"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="18sp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+    <Button
+            android:text="@string/add_button"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorSpotifyGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"/>
+    <Button
+            android:text="@string/play_button"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorSpotifyGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/play_button"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="340dp"
+            android:layout_height="559dp"
+            app:layout_constraintTop_toBottomOf="@+id/playlist_name"
+            android:layout_marginBottom="36dp"
+            app:layout_constraintBottom_toTopOf="@+id/add_button"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginTop="36dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
