@@ -404,7 +404,7 @@ function closeroomPHP()
 //this writes the needed session variables from the landing page
 function writesessionPHP()
 {
-	var payload = '{"roomid" : "' + roomid + '", "joincode" : "' + joincode + '", "playlistid" : "' + hostplaylist + '"}';
+	var payload = '{"roomid" : "' + roomid + '", "joincode" : "' + joincode + '", "playlistid" : "' + hostplaylist + '", "playlistname" : "' + playlistname + '"}';
 	var retreive = new XMLHttpRequest();
 	retreive.open("POST", "http://www.playlistparty.live/api/writeSession.php", false);
 	retreive.setRequestHeader("Content-Type", "application/json");
@@ -424,4 +424,5 @@ function readsessionPHP()
 	roomid = obj.roomid;
 	joincode = obj.joincode;
 	hostplaylist = obj.playlistid;
+	playlistname = obj.playlistname;
 }
