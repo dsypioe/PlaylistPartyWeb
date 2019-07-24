@@ -107,13 +107,17 @@
 	{
 		header('Content-type: application/json');
 		$grab = json_decode($obj);
-		$send = $grab->access_token;
-		storekey(json_encode($send));
-		echo json_encode($grab->access_token);
+		$send = json_encode($grab->access_token);
+		storekey($send);
+		$retValue =   '{"token":' . $send . '}';
+		echo $retValue;
 	}
 	
 	function sendOtherJson($obj)
 	{
-		echo json_encode($obj);
+		$send = json_encode($obj);
+		header('Content-type: application/json');
+		$retValue =   '{"token":' . $send . '}';
+		echo $retValue;
 	}
 ?>
