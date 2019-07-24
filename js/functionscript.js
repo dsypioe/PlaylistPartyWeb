@@ -135,7 +135,7 @@ function addSong()
 	}
 	
 	var params = {
-		"uris":"spotify:track:"+mergesong.id,
+		"uris":["spotify:track:"+mergesong.id],
 	};
 	
 	//sends post request to create playlist with entered name on spotify
@@ -164,7 +164,7 @@ function removeSong()
 	checksiteAccess();
 	
 	var params = {
-		"tracks":[{"uri": "spotify:"+delsong}],
+		"tracks":[{"uri": "spotify:track:"+delsong}],
 	};
 	
 	//sends post request to create playlist with entered name on spotify
