@@ -36,7 +36,7 @@
 		$conn->close();
 	}
 	
-	//if song is removed, returns status of 200
+	//if room has been deleted, returns status of 200
 	function returnSuccess()
 	{
 		$retValue = '{"status":"200"}';

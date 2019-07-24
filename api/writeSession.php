@@ -6,6 +6,7 @@
 	$_SESSION["roomid"] = $inData["roomid"];
 	$_SESSION["joincode"] = $inData["joincode"];
 	$_SESSION["playlistid"] = $inData["playlistid"];
+	$_SESSION["playlistname"] = $inData["playlistname"];
 
 	// get json data
 	function getRequestInfo()

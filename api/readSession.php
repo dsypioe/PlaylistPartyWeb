@@ -3,6 +3,7 @@
 	$roomid = 0;
 	$joincode = "ERROR";
 	$playlistid = "ERROR";
+	$playlistname = "ERROR";
 	if(isset($_SESSION["roomid"]))
 	{
 		$roomid = $_SESSION["roomid"];
@@ -15,8 +16,12 @@
 	{
 		$playlistid = $_SESSION["playlistid"];
 	}
+	if(isset($_SESSION["playlistname"]))
+	{
+		$playlistname = $_SESSION["playlistname"];
+	}
 
-    returnWithInfo($roomid, $joincode, $playlistid);
+    returnWithInfo($roomid, $joincode, $playlistid, $playlistname);
 	
 	// get json data
 	function getRequestInfo()
@@ -36,9 +41,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
     // return json with blank error field
-	function returnWithInfo( $idValue, $joinValue, $playlistValue )
+	function returnWithInfo( $idValue, $joinValue, $playlistValue, $playlistnameValue )
 	{
-		$retValue =   '{"roomid":' . $idValue . ',"joincode":"' . $joinValue . '","playlistid":"' . $playlistValue .'"}';
+		$retValue =   '{"roomid":' . $idValue . ',"joincode":"' . $joinValue . '","playlistid":"' . $playlistValue .'","playlistname":"' . $playlistnameValue .'"}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
