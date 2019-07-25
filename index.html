@@ -9,26 +9,26 @@
 
 		<title>PLAYLIST PARTY</title>
 		<link href="indexStyle.css" rel="stylesheet">
-		<script type="text/javascript">
+		<script type="text/javascript" src="script.js">
 
 		</script>
 	</head>
 
-	<body>
+	<body onload="animationLooper()">
+    <canvas id="renderer"></canvas>
 		<div class="top-bar">
 			<p> PLAYLIST PARTY </p>
 		</div>
 		<div class="btn-group">
-  			<button style="margin-top: 10px; margin-right: 50px;">Create a New Room</button>
-				<b style="margin-left: 135px;"> OR </b>
-				<button style="margin-bottom: 0px;">Join an Existing Room</button>
-				<form>
-					<b> NAME </b>
+  			<button style="margin-top: 140px;">Create a New Room</button>
+				<b> OR </b>
+				<button onclick="toggleVisibility('formJoin')">Join an Existing Room</button>
+				<formJoin id = "formJoin">
+					<b2> NAME </b2>
 					<input type="text" name="name" id="name" placeholder="ENTER YOUR NAME">
-					<b> ROOM CODE </b>
+					<b2> ROOM CODE </b2>
 					<input name="roomcode" id="roomcode" class="form-control jbg-input" type="text" tabindex="0" placeholder="ENTER 4-LETTER CODE" style="text-transform:uppercase;" maxlength="4" value="" autocapitalize="off" autocorrect="off" autocomplete="off">
-				</form>
-
+				</formJoin>
 		</div>
 	</body>
 </html>
