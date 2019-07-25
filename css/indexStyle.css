@@ -9,16 +9,18 @@ body {
   background-color: #181818;
 }
 
+canvas {
+  position: absolute;
+}
+
 /* the header bar */
 .top-bar {
-  background-color: #4CAF50;
   text-align: center;
   width: 100%;
   height: 50px;
   position: fixed;
   top: 0;
   left : 0;
-  border-bottom: 2px solid black;
 }
 
  /* the text within the header bar */
@@ -31,30 +33,42 @@ body {
 
   /*the green space where the buttons and input fields are located, the button group */
 .btn-group {
-  border-radius: 25px;
-  background: #1DB954;
-  width: 300px;
-  height: 230px;
-  border: 2px solid #000000;
+  border-radius: 50%;
+  background: #181818;
+  width: 400px;
+  height: 400px;
   display:block;
   margin:0 auto;
-  margin-top: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -200px;
 }
 
   /* the green buttons within the button group */
 .btn-group button {
   background-color: #4CAF50; /* Green background */
-  border: 1px solid green; /* Green border */
+  border: 1px solid black; /* Green border */
   color: white; /* White text */
   border-radius: 15px;
   width: 175px;
   height: 35px;
   cursor: pointer; /* Pointer/hand icon */
-  margin-left: 62.5px;
+  margin-left: 112.5px;
+  margin-right: 112.5px;
 }
 
-  /* the black bolded text within the button group */
+
 .btn-group b {
+  font-size: 20px;
+  margin-left: 190px;
+  margin-right: 190px;
+  color: white;
+}
+
+  /* the black bolded text within the button group after clicking on the Join button */
+.btn-group b2 {
   font-size: 20px;
   margin-left: 65px;
   margin-right: 100px;
@@ -71,4 +85,8 @@ body {
   font-size: 14px;
   border: none;
 
+}
+
+.btn-group formJoin {
+  display: none;
 }
