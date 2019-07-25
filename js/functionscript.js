@@ -23,23 +23,6 @@ function homestart()
 	readsessionPHP();
 }
 
-/*
-//checks sites authorization token for site spotify account, called at beginning of every function
-function checksiteAccess()
-{
-    var retreive = new XMLHttpRequest();
-	retreive.open("GET", siteplaylist_url, false);
-	retreive.setRequestHeader("Authorization", "Bearer "+token);
-	retreive.send();
-    var obj = JSON.parse(retreive.status);
-    
-    if (obj !== 200)
-    {
-        getnewToken();
-    }
-}
-*/
-
 //retrieves new token as needed for sites spotify account
 function checksiteAccess()
 {
@@ -61,11 +44,12 @@ function namePlaylist()
 function createRoom()
 {
 	checksiteAccess();
+	namePlaylist();
 	
 	//this creates a random 5 character string used as the code to join the room
 	//before being used, we check our database to see if the joincode already exist, or if it can be used
 	var valid = 1;
-	while (valid !== 200)
+	while (valid != 200)
 	{
 		var joinstring = '';
 		var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
@@ -90,30 +74,37 @@ function createRoom()
 	
 	//retreive the playlist id to store for room
 	hostplaylist = obj.id;
+	joincode = joinstring;
 	
 	//creates the room on our databse and returns the roomid
 	createroomPHP(joinstring);
 	
 	//writes session variables
 	writesessionPHP();
+	
+	// for testing functionality of api and spotify comunication
+	window.location.href = 'http://www.playlistparty.live/page.html', true;
 }
 
 //this is what allows a user to join a room
 function joinRoom()
 {
 	//grabs the join code entered by the user
-	var joinstring = document.getElementById('joinstring').value;
+	joincode = document.getElementById('joincode').value;
 	
 	//checks if the join code is valid, if it is 200 will be returned to error. otherwise invalid join code
-	var error = joinRoomPHP(joinstring);
+	var error = joinRoomPHP(joincode);
 	
-	if(error !== 200)
+	if(error != 200)
 	{
 		//error here
 	}
 	else{
 		//join worked fine
 		writesessionPHP();
+		
+		// for testing functionality of api and spotify comunication
+		window.location.href = 'http://www.playlistparty.live/page.html', true;
 	}
 }
 
@@ -121,21 +112,24 @@ function joinRoom()
 function addSong()
 {
 	checksiteAccess();
+	mergesong = document.getElementById('addsongid').value;
 	
 	//first check if song has been blacklisted or if it is a duplicate
-	var blacklist = checkblacklistPHP(mergesong.id);
-	var dupeplaylist = checkduplicateplaylistPHP(mergesong.id);
-	if (blacklist !== 200){
+	var blacklist = checkblacklistPHP(mergesong);
+	var dupeplaylist = checkduplicateplaylistPHP(mergesong);
+	if (blacklist != 200){
 		//song is blacklisted, do stuff
+		console.log("fuck");
 		return;
 	}
-	if (dupeplaylist !== 200){
+	if (dupeplaylist != 200){
 		//song is a duplicate, do stuff
+		console.log("fuck");
 		return;
 	}
 	
 	var params = {
-		"uris":["spotify:track:"+mergesong.id],
+		"uris":["spotify:track:"+mergesong],
 	};
 	
 	//sends post request to create playlist with entered name on spotify
@@ -147,14 +141,16 @@ function addSong()
 	var obj = JSON.parse(retreive.responseText);
 	var stat = JSON.parse(retreive.status);
 	
-	if (stat !== 201)
+	if (stat != 201)
     {
         //apparently spotify is down
+		console.log("change params");
     }
 	else
 	{
 		//upon success adding song to spotify playlist, adds to our playlist table for site use
-		addtoplaylistPHP(mergesong.id, mergesong.name, mergesong.artists, mergesong.album.images[2].url);
+		console.log(roomid);
+		addtoplaylistPHP(mergesong);
 	}
 }
 
@@ -162,6 +158,7 @@ function addSong()
 function removeSong()
 {
 	checksiteAccess();
+	delsong = document.getElementById('removesongid').value;
 	
 	var params = {
 		"tracks":[{"uri": "spotify:track:"+delsong}],
@@ -176,7 +173,7 @@ function removeSong()
 	var obj = JSON.parse(retreive.responseText);
 	var stat = JSON.parse(retreive.status);
 	
-	if (stat !== 200)
+	if (stat != 200)
     {
         //spotify is down again
     }
@@ -290,7 +287,7 @@ function checkblacklistPHP(songid)
 {
 	var params = {
 		"roomid":roomid,
-		"songid":songid,
+		"songid":songid
 	};
 	
 	var retreive = new XMLHttpRequest();
@@ -300,6 +297,7 @@ function checkblacklistPHP(songid)
 	var obj = JSON.parse(retreive.responseText);
 	
 	//if 200 is returned song is not blacklisted, if 400 is returned song is blacklisted
+	console.log(obj.status);
 	return obj.status;
 }
 
@@ -308,7 +306,7 @@ function addtoplaylistPHP(songid)
 {
 	var params = {
 		"roomid":roomid, 
-		"songid":songid, 
+		"songid":songid
 	};
 	
 	var retreive = new XMLHttpRequest();
@@ -323,7 +321,7 @@ function checkduplicateplaylistPHP(songid)
 {
 	var params = {
 		"roomid":roomid,
-		"songid":songid,
+		"songid":songid
 	};
 	
 	var retreive = new XMLHttpRequest();
@@ -341,7 +339,7 @@ function getplaylistinfoPHP()
 {
 	var params = {
 		"playlistid":hostplaylist,
-		"token":token,
+		"token":token
 	};
 	
 	var retreive = new XMLHttpRequest();
@@ -361,6 +359,9 @@ function getplaylistinfoPHP()
 		
 		//this should grab everything that is needed, just needs to be displayed on table
 	}
+	
+	//for testing
+	document.getElementById("playlistinfo").innerHTML = JSON.stringify(obj);
 }
 
 //this is the server script for removing a song from the playlist table
@@ -368,7 +369,7 @@ function removefromplaylistPHP(songid)
 {
 	var params = {
 		"roomid":roomid,
-		"songid":songid,
+		"songid":songid
 	};
 	
 	var retreive = new XMLHttpRequest();
@@ -399,7 +400,7 @@ function checkduplicatejoincodePHP(joinstring)
 function closeroomPHP()
 {
 	var params = {
-		"roomid":roomid,
+		"roomid":roomid
 	};
 	
 	var retreive = new XMLHttpRequest();
@@ -422,7 +423,7 @@ function writesessionPHP()
 //this retreives the needed seesion variables for the homepage
 function readsessionPHP()
 {
-	var payload = '{"roomid" : "' + roomid + '", "joincode" : "' + joincode + '", "playlistid" : "' + hostplaylist + '"}';
+	var payload = '{"roomid" : "' + roomid + '", "joincode" : "' + joincode + '", "playlistid" : "' + hostplaylist + '", "playlistname" : "' + playlistname + '"}';
 	var retreive = new XMLHttpRequest();
 	retreive.open("POST", "http://www.playlistparty.live/api/readSession.php", false);
 	retreive.setRequestHeader("Content-Type", "application/json");
