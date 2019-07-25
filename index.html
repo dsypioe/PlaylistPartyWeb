@@ -20,15 +20,27 @@
 			<p> PLAYLIST PARTY </p>
 		</div>
 		<div class="btn-group">
-  			<button style="margin-top: 140px;">Create a New Room</button>
+			<div class="createJoin" id = "createJoin">
+  			<button onclick="displayBlock('formCreate');displayNone('createJoin')" style="margin-top: 140px;">Create a New Room</button>
 				<b> OR </b>
-				<button onclick="toggleVisibility('formJoin')">Join an Existing Room</button>
+				<button onclick="displayBlock('formJoin');displayNone('createJoin')">Join an Existing Room</button>
+			</div>
 				<formJoin id = "formJoin">
 					<b2> NAME </b2>
 					<input type="text" name="name" id="name" placeholder="ENTER YOUR NAME">
 					<b2> ROOM CODE </b2>
 					<input name="roomcode" id="roomcode" class="form-control jbg-input" type="text" tabindex="0" placeholder="ENTER 4-LETTER CODE" style="text-transform:uppercase;" maxlength="4" value="" autocapitalize="off" autocorrect="off" autocomplete="off">
+					<button style="margin-top: 35px;">Submit</button>
+					<exitButton onclick="displayNone('formJoin');displayBlock('createJoin')">✖</exitButton>
 				</formJoin>
+				<formCreate id = "formCreate">
+					<b2> NAME </b2>
+					<input type="text" name="name" id="name" placeholder="ENTER YOUR NAME">
+					<b2> PLAYLIST NAME </b2>
+					<input name="roomcode" id="roomcode" type="text" placeholder="ENTER PLAYLIST NAME">
+					<button style="margin-top: 35px;">Submit</button>
+					<exitButton onclick="displayNone('formCreate');displayBlock('createJoin')">✖</exitButton>
+				</formCreate>
 		</div>
 	</body>
 </html>
