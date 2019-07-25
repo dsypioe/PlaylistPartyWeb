@@ -71,10 +71,18 @@ function drawBar(x1, y1, x2, y2, width){
     ctx.stroke();
 }
 
-function toggleVisibility(divID) {
+function displayBlock(divID) {
+  var item = document.getElementById(divID);
+  if(item.style.display == 'none')
+          item.style.display = 'block';
+       else
+          item.style.display = 'none';
+  }
+
+function displayNone(divID) {
   var item = document.getElementById(divID);
   if(item.style.display == 'block')
           item.style.display = 'none';
        else
           item.style.display = 'block';
-  }
+}
