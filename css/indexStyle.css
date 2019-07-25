@@ -5,7 +5,11 @@
 /* Sand = #ecebe8 */
 /* White = #ffffff */
 
-/* This is the header bar */
+body {
+  background-color: #181818;
+}
+
+/* the header bar */
 .top-bar {
   background-color: #4CAF50;
   text-align: center;
@@ -14,19 +18,30 @@
   position: fixed;
   top: 0;
   left : 0;
-  border-bottom: 1px solid black;
-
- /* This is the text within the header bar */
+  border-bottom: 2px solid black;
 }
+
+ /* the text within the header bar */
 .top-bar p {
-  position: relative;
-  bottom: 15px;
+  margin-top: 5px;
   font-weight: bold;
   font-size:25px;
   color: black;
 }
 
-  /* These are for the green buttons within the button group */
+  /*the green space where the buttons and input fields are located, the button group */
+.btn-group {
+  border-radius: 25px;
+  background: #1DB954;
+  width: 300px;
+  height: 230px;
+  border: 2px solid #000000;
+  display:block;
+  margin:0 auto;
+  margin-top: 100px;
+}
+
+  /* the green buttons within the button group */
 .btn-group button {
   background-color: #4CAF50; /* Green background */
   border: 1px solid green; /* Green border */
@@ -38,20 +53,7 @@
   margin-left: 62.5px;
 }
 
-  /* This is for the green space where the buttons and input fields are located, the button group */
-.btn-group {
-  border-radius: 25px;
-  background: #1DB954;
-  padding: 20px;
-  width: 300px;
-  height: 200px;
-  border: 2px solid #000000;
-  display:block;
-  margin:0 auto;
-  margin-top: 100px;
-}
-
-  /* This is for the black bolded text within the button group */
+  /* the black bolded text within the button group */
 .btn-group b {
   font-size: 20px;
   margin-left: 65px;
@@ -65,7 +67,7 @@
   margin-left: 65px;
   margin-right: 65px;
   border-radius: 10px;
-  text-indent: 5px;
+  text-align: center;
   font-size: 14px;
   border: none;
 
