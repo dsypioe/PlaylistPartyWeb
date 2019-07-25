@@ -83,7 +83,7 @@ function createRoom()
 	writesessionPHP();
 	
 	// for testing functionality of api and spotify comunication
-	//window.location.href = 'http://www.playlistparty.live/page.html', true;
+	window.location.href = 'http://www.playlistparty.live/page.html', true;
 	
 	//here we will then redirect host to home page
 }
@@ -106,7 +106,7 @@ function joinRoom()
 		writesessionPHP();
 		
 		// for testing functionality of api and spotify comunication
-		//window.location.href = 'http://www.playlistparty.live/page.html', true;
+		window.location.href = 'http://www.playlistparty.live/page.html', true;
 		
 		//here we will redirect user to home page
 	}
@@ -117,7 +117,7 @@ function addSong()
 {
 	checksiteAccess();
 	
-	//mergesong = document.getElementById('addsongid').value;
+	mergesong = document.getElementById('addsongid').value;
 	
 	//first check if song has been blacklisted or if it is a duplicate
 	var blacklist = checkblacklistPHP(mergesong);
@@ -355,7 +355,12 @@ function getplaylistinfoPHP()
 		var songname = obj.items[i].track.name;
 		var songartist = obj.items[i].track.artists[0].name;
 		var songalbum = obj.items[i].track.album.name;
-		var albumimage = obj.items[i].track.album.images[2];
+		var albumimage = obj.items[i].track.album.images[2].url;
+		
+		console.log(songname);
+		console.log(songartist);
+		console.log(songalbum);
+		console.log(albumimage);
 		
 		//this should grab everything that is needed for each playlist track, just needs to be thrown in table
 	}
