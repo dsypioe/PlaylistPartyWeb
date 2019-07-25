@@ -2,7 +2,7 @@ var token = "";//holds the access token for the apps spotify account
 var usertoken = "";//if user want to add from there own playlist, holds the user access token
 var playlistname = "";//when creating a room, this is the playlistname entered by the host
 var hostplaylist = "";//this holds the spotify playlist id for the rooms playlist
-var mergesong;//when adding a song to the playlist, this will hold the entire track object for the song to be added
+var mergesong;//holds spotify id for song to be added to playlist
 var delsong;//this just holds the spotify id for the song to be deleted from the playlist
 var roomid;//this holds the room id for the room, is used in a lot of our API calls
 var joincode = "";//holds the joincode to display to user to share with others to join room
@@ -83,7 +83,9 @@ function createRoom()
 	writesessionPHP();
 	
 	// for testing functionality of api and spotify comunication
-	window.location.href = 'http://www.playlistparty.live/page.html', true;
+	//window.location.href = 'http://www.playlistparty.live/page.html', true;
+	
+	//here we will then redirect host to home page
 }
 
 //this is what allows a user to join a room
@@ -97,14 +99,16 @@ function joinRoom()
 	
 	if(error != 200)
 	{
-		//error here
+		//invalid join code, output a message
 	}
 	else{
 		//join worked fine
 		writesessionPHP();
 		
 		// for testing functionality of api and spotify comunication
-		window.location.href = 'http://www.playlistparty.live/page.html', true;
+		//window.location.href = 'http://www.playlistparty.live/page.html', true;
+		
+		//here we will redirect user to home page
 	}
 }
 
@@ -112,19 +116,18 @@ function joinRoom()
 function addSong()
 {
 	checksiteAccess();
-	mergesong = document.getElementById('addsongid').value;
+	
+	//mergesong = document.getElementById('addsongid').value;
 	
 	//first check if song has been blacklisted or if it is a duplicate
 	var blacklist = checkblacklistPHP(mergesong);
 	var dupeplaylist = checkduplicateplaylistPHP(mergesong);
 	if (blacklist != 200){
-		//song is blacklisted, do stuff
-		console.log("fuck");
+		//song is blacklisted, output a message
 		return;
 	}
 	if (dupeplaylist != 200){
-		//song is a duplicate, do stuff
-		console.log("fuck");
+		//song is a duplicate, output a message
 		return;
 	}
 	
@@ -144,12 +147,10 @@ function addSong()
 	if (stat != 201)
     {
         //apparently spotify is down
-		console.log("change params");
     }
 	else
 	{
 		//upon success adding song to spotify playlist, adds to our playlist table for site use
-		console.log(roomid);
 		addtoplaylistPHP(mergesong);
 	}
 }
@@ -297,7 +298,6 @@ function checkblacklistPHP(songid)
 	var obj = JSON.parse(retreive.responseText);
 	
 	//if 200 is returned song is not blacklisted, if 400 is returned song is blacklisted
-	console.log(obj.status);
 	return obj.status;
 }
 
@@ -348,7 +348,7 @@ function getplaylistinfoPHP()
 	retreive.send(JSON.stringify(params));
 	var obj = JSON.parse(retreive.responseText);
 	
-	//returns a mess of info, will work on parsing it correctly
+	//this should iterate through the response items to grab the specified feilds
 	var playlistlength = obj.items.length;
 	for(var i = 0; i < playlistlength; i++)
 	{
@@ -357,11 +357,11 @@ function getplaylistinfoPHP()
 		var songalbum = obj.items[i].track.album.name;
 		var albumimage = obj.items[i].track.album.images[2];
 		
-		//this should grab everything that is needed, just needs to be displayed on table
+		//this should grab everything that is needed for each playlist track, just needs to be thrown in table
 	}
 	
 	//for testing
-	document.getElementById("playlistinfo").innerHTML = JSON.stringify(obj);
+	//document.getElementById("playlistinfo").innerHTML = JSON.stringify(obj);
 }
 
 //this is the server script for removing a song from the playlist table
