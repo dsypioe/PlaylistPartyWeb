@@ -5,9 +5,6 @@
 	
 	$roomid = $inData["roomid"];
 	$songid = $inData["songid"];
-	//$songname = $inData["songname"];
-	//$artist = $inData["artist"];
-	//$artlink = $inData["artlink"];
 	
 	// connects to database and adds song and info to playlist table
 	$conn = new mysqli("localhost", "v3ksrrem0t05", "#Ijsda914", "PlaylistParty");
