@@ -31,6 +31,11 @@ canvas {
   color: black;
 }
 
+.btn-group createJoin{
+  display: block;
+  margin-left: 200px;
+}
+
   /*the green space where the buttons and input fields are located, the button group */
 .btn-group {
   border-radius: 50%;
@@ -62,7 +67,7 @@ canvas {
 
 .btn-group b {
   font-size: 20px;
-  margin-left: 190px;
+  margin-left: 185px;
   margin-right: 190px;
   color: white;
 }
@@ -70,23 +75,36 @@ canvas {
   /* the black bolded text within the button group after clicking on the Join button */
 .btn-group b2 {
   font-size: 20px;
-  margin-left: 65px;
+  margin-left: 115px;
   margin-right: 100px;
+  color: white;
 }
 
   /* The input fields within the button group. */
 .btn-group input {
   width: 170px;
   height: 20px;
-  margin-left: 65px;
-  margin-right: 65px;
   border-radius: 10px;
   text-align: center;
   font-size: 14px;
   border: none;
+  margin-left: 115px;
 
+}
+
+.btn-group exitButton {
+  margin-top: 50px;
+  margin-left: 190px;
+  color: white;
+  font-size: 20px;
 }
 
 .btn-group formJoin {
   display: none;
+  margin-top: 110px;
+}
+
+.btn-group formCreate {
+  display: none;
+  margin-top: 110px;
 }
